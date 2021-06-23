@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
-import os
 import torch
+import os
 import random
+import tensorflow as tf
 import torch.nn as nn
 from transformers import BertTokenizer
 from sklearn.utils.class_weight import compute_class_weight
@@ -22,15 +23,8 @@ from sklearn.metrics import accuracy_score
 import string
 import time
 import datetime
-
 def format_time(elapsed):
-    '''
-    Takes a time in seconds and returns a string hh:mm:ss
-    '''
-    # Round to the nearest second.
     elapsed_rounded = int(round((elapsed)))
-
-    # Format as hh:mm:ss
     return str(datetime.timedelta(seconds=elapsed_rounded))
 
 def clean(tweet):
@@ -85,7 +79,6 @@ def plotMostCommons(df):
     y_pos = np.arange(len(ngram))
     performance = top_15.values()
 
-
     ax.barh(y_pos, performance, align='center')
     ax.set_yticks(y_pos)
     ax.set_yticklabels(ngram)
@@ -119,7 +112,6 @@ def plotMostCommons(df):
     y_pos = np.arange(len(ngram))
     performance = top_15.values()
 
-
     ax.barh(y_pos, performance, align='center')
     ax.set_yticks(y_pos)
     ax.set_yticklabels(ngram)
@@ -141,7 +133,7 @@ if __name__ == "__main__":
     device = torch.device("cuda")
 
     # check class distribution
-    #print(df['clickbait'].value_counts(normalize = True))
+    print(df['clickbait'].value_counts(normalize = True))
 
     data_clean = []
     for headline in df['headline']:
@@ -244,6 +236,7 @@ if __name__ == "__main__":
     scheduler = get_linear_schedule_with_warmup(optimizer,
                                                 num_warmup_steps = 0, # Default value in run_glue.py
                                                 num_training_steps = total_steps)
+
 
     # Set the seed value all over the place to make this reproducible.
     #The “seed” is a starting point for the sequence and the guarantee is that if you start from the same seed you will get the same sequence of numbers.
