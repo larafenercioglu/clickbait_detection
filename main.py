@@ -1,28 +1,8 @@
-import numpy as np
-import pandas as pd
 import torch
-import random
-import tensorflow as tf
-import torch.nn as nn
 from transformers import BertTokenizer
-from sklearn.utils.class_weight import compute_class_weight
-from sklearn.model_selection import train_test_split
-from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
-from transformers import BertForSequenceClassification, AdamW, BertConfig
-from transformers import get_linear_schedule_with_warmup
-from sklearn.metrics import classification_report
-import transformers
-from transformers import AutoModel, BertTokenizerFast
-import matplotlib.pyplot as plt
-from nltk import word_tokenize
-from nltk.corpus import stopwords
-from collections import Counter
+from transformers import AutoModel
 import re
-from sklearn.metrics import accuracy_score
 import string
-import time
-import datetime
-
 from model import BERT_Arch
 
 def clean(tweet):
@@ -41,13 +21,15 @@ def removeNum(tweet):
 def predict(sentence: str):
     processed_sentencen = clean(sentence)
     processed_sentence = removeNum(processed_sentencen)
-    sent_id = tokenizer.batch_encode_plus(processed_sentence, padding=True, max_length=64,truncation=True,return_token_type_ids=False)
+    p = []
+    p.append(processed_sentence)
+    sent_id = tokenizer.batch_encode_plus(p, padding=True, max_length=64,truncation=True,return_token_type_ids=False)
     ids = torch.tensor(sent_id['input_ids'])
     mask = torch.tensor(sent_id['attention_mask'])
 
     pred = model(ids, mask)
     _, prediction = torch.max(pred, dim=1)
-    return prediction
+    return prediction.numpy()[0]
 
 if __name__ == "__main__":
     tokenizer = BertTokenizer.from_pretrained('dbmdz/bert-base-turkish-cased', do_lower_case=True)
@@ -57,11 +39,40 @@ if __name__ == "__main__":
 
     headline = "Başkandan şok açıklama! İşte o karar..."
     headline2 = "Fenerbahçe şampiyon oldu"
-    prediction = predict(headline)
-    print(prediction)
+    headline3 = "CHP bugün oylamada erken seçim olacağının belirtti"
+    headline4 = "Corona aşısı Mayıs ayı itibariyle tüm vatandaşlara uygulanacak"
+    headline5 = "İşte o futbolcu transfer oldu"
+    headline6 = "Tartışma yaratan karar: İşveren çalışanını aşı olmaya zorlayabilir mi?"
+    headlines = []
+    headlines.append(headline)
+    headlines.append(headline2)
+    headlines.append(headline3)
+    headlines.append(headline4)
+    headlines.append(headline5)
+    headlines.append(headline6)
 
-    #res = "Clickbait" if prediction >= 0.4 else "Non-Clickbait"
-    #print(res)
+    predictions = []
+    prediction = predict(headline)
+    prediction2 = predict(headline2)
+    prediction3 = predict(headline3)
+    prediction4 = predict(headline4)
+    prediction5 = predict(headline5)
+    prediction6 = predict(headline6)
+
+    predictions.append(prediction)
+    predictions.append(prediction2)
+    predictions.append(prediction3)
+    predictions.append(prediction4)
+    predictions.append(prediction5)
+    predictions.append(prediction6)
+
+    preds = {}
+    for i in range(len(headlines)):
+        preds[headlines[i]] = "Clickbait" if predictions[i] == 1 else "Non-Clickbait"
+
+    print(preds)
+
+
 
 
 

@@ -24,9 +24,12 @@ import datetime
 
 from model import BERT_Arch
 
-def format_time(elapsed):
-    elapsed_rounded = int(round((elapsed)))
-    return str(datetime.timedelta(seconds=elapsed_rounded))
+# specify GPU
+device = torch.device("cuda")
+
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
 
 def clean(tweet):
     tweet = re.sub(r"@[A-Za-z0-9ğüşöçıİĞÜŞÖÇ_]+",' ',tweet)
@@ -41,15 +44,25 @@ def removeNum(tweet):
     tweet = re.sub(r"[0-9]+",' ',tweet)
     return tweet
 
-def plot_sentence_embeddings_length(text_list, tokenizer):
-    tokenized_texts = list(map(lambda t: tokenizer.tokenize(t), text_list))
-    tokenized_texts_len = list(map(lambda t: len(t), tokenized_texts))
-    fig, ax = plt.subplots(figsize=(8, 5));
-    ax.hist(tokenized_texts_len, bins=40);
-    ax.set_xlabel("Length of Comment Embeddings");
-    ax.set_ylabel("Number of Comments");
-    plt.show()
-    return
+df = pd.read_csv('tr_clickbait_dataset.csv',  encoding="utf-8-sig")
+df.dropna(inplace=True)
+
+# check class distribution
+print(df['clickbait'].value_counts(normalize = True))
+
+data_clean = []
+for headline in df['headline']:
+    headlined = str(headline)
+    headlined = re.sub(r"Diken",' ',headlined)
+    cleaned_headline = clean(headlined)
+    cleanedd_headline = removeNum(cleaned_headline)
+    data_clean.append(cleanedd_headline)
+
+x = pd.Series(data_clean)
+x = x.tolist()
+df['tr_headline'] = x
+del df['headline']
+df.reset_index(drop=True, inplace=True)
 
 def plotMostCommons(df):
     #for clickabait sentiments
@@ -123,6 +136,133 @@ def plotMostCommons(df):
 
     plt.show()
 
+plotMostCommons(df)
+
+train_text, temp_text, train_labels, temp_labels = train_test_split(df['tr_headline'], df['clickbait'],
+                                                                    random_state=42,
+                                                                    test_size=0.3,
+                                                                    stratify=df['clickbait'])
+
+# we will use temp_text and temp_labels to create validation and test set
+val_text, test_text, val_labels, test_labels = train_test_split(temp_text, temp_labels,
+                                                                random_state=42,
+                                                                test_size=0.5,
+                                                                stratify=temp_labels)
+
+# import BERT-base pretrained model
+bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-cased')
+
+# Load the BERT tokenizer
+tokenizer = BertTokenizerFast.from_pretrained('dbmdz/bert-base-turkish-cased')
+
+def plot_sentence_embeddings_length(text_list, tokenizer):
+    tokenized_texts = list(map(lambda t: tokenizer.tokenize(t), text_list))
+    tokenized_texts_len = list(map(lambda t: len(t), tokenized_texts))
+    fig, ax = plt.subplots(figsize=(8, 5));
+    ax.hist(tokenized_texts_len, bins=40);
+    ax.set_xlabel("Length of Comment Embeddings");
+    ax.set_ylabel("Number of Comments");
+    plt.show()
+    return
+
+plot_sentence_embeddings_length(train_text.values,tokenizer)
+
+"""Padding all the samples to the maximum length is not efficient: it’s better to pad the samples when we’re building a batch, as then we only need to pad to the maximum length in that batch, and not the maximum length in the entire dataset. This can save a lot of time and processing power when the inputs have very variable lengths!"""
+
+max_seq_len = 32 #her batch için bunu güncellesennnnnn
+
+# tokenize and encode sequences in the training set
+tokens_train = tokenizer.batch_encode_plus(
+    train_text.tolist(),
+    max_length = max_seq_len,
+    padding=True,
+    truncation=True,
+    return_token_type_ids=False
+)
+
+# tokenize and encode sequences in the validation set
+tokens_val = tokenizer.batch_encode_plus(
+    val_text.tolist(),
+    max_length = max_seq_len,
+    padding=True,
+    truncation=True,
+    return_token_type_ids=False
+)
+
+# tokenize and encode sequences in the test set
+tokens_test = tokenizer.batch_encode_plus(
+    test_text.tolist(),
+    max_length = max_seq_len,
+    padding=True,
+    truncation=True,
+    return_token_type_ids=False
+)
+
+# for train set
+train_seq = torch.tensor(tokens_train['input_ids'])
+train_mask = torch.tensor(tokens_train['attention_mask'])
+train_y = torch.tensor(train_labels.tolist())
+
+# for validation set
+val_seq = torch.tensor(tokens_val['input_ids'])
+val_mask = torch.tensor(tokens_val['attention_mask'])
+val_y = torch.tensor(val_labels.tolist())
+
+# for test set
+test_seq = torch.tensor(tokens_test['input_ids'])
+test_mask = torch.tensor(tokens_test['attention_mask'])
+test_y = torch.tensor(test_labels.tolist())
+
+from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
+
+#define a batch size
+batch_size = 32 #CAN BE CHANGED????
+
+# wrap tensors
+train_data = TensorDataset(train_seq, train_mask, train_y)
+
+# dataLoader for train set
+train_dataloader = DataLoader(train_data, sampler=RandomSampler(train_data), batch_size=batch_size)
+
+# wrap tensors
+val_data = TensorDataset(val_seq, val_mask, val_y)
+
+# dataLoader for validation set
+val_dataloader = DataLoader(val_data, sampler = SequentialSampler(val_data), batch_size=batch_size)
+
+# freeze all the parameters
+for param in bert.parameters():
+    param.requires_grad = False
+
+# pass the pre-trained BERT to our define architecture
+model = BERT_Arch(bert)
+
+# push the model to GPU
+model = model.to(device)
+
+# optimizer from hugging face transformers
+from transformers import AdamW #CAN BE CHANGED????????????
+
+# define the optimizer
+optimizer = AdamW(model.parameters(), lr = 5e-5)
+
+from sklearn.utils.class_weight import compute_class_weight
+
+#compute the class weights
+class_wts = compute_class_weight('balanced', np.unique(train_labels), train_labels)
+
+print(class_wts)
+
+# convert class weights to tensor
+weights= torch.tensor(class_wts,dtype=torch.float)
+weights = weights.to(device)
+
+# loss function #CAN BE CHANGED????????????
+cross_entropy  = nn.NLLLoss(weight=weights)
+
+# number of training epochs
+epochs = 20 #CAN BE CHANGED?????????????
+
 # function to train the model
 def train():
 
@@ -181,6 +321,7 @@ def train():
 
     #returns the loss and predictions
     return avg_loss, total_preds
+
 # function for evaluating the model
 def evaluate():
 
@@ -234,186 +375,48 @@ def evaluate():
 
     return avg_loss, total_preds
 
-def flat_accuracy(preds, labels):
-    pred_flat = np.argmax(preds, axis=1).flatten()
-    labels_flat = labels.flatten()
-    return np.sum(pred_flat == labels_flat) / len(labels_flat)
+# set initial loss to infinite
+best_valid_loss = float('inf')
 
-if __name__ == "__main__":
-    df = pd.read_csv('tr_clickbait_dataset.csv',  encoding="utf-8-sig")
-    df.dropna(inplace=True)
+# empty lists to store training and validation loss of each epoch
+train_losses=[]
+valid_losses=[]
 
-    # check class distribution
-    print(df['clickbait'].value_counts(normalize = True))
+#for each epoch
+for epoch in range(epochs):
 
-    data_clean = []
-    for headline in df['headline']:
-        headlined = str(headline)
-        headlined = re.sub(r"Diken",' ',headlined)
-        #remove three dots!!!!!!!!
-        cleaned_headline = clean(headlined)
-        cleanedd_headline = removeNum(cleaned_headline)
-        data_clean.append(cleanedd_headline)
+    print('\n Epoch {:} / {:}'.format(epoch + 1, epochs))
 
-    x = pd.Series(data_clean)
-    x = x.tolist()
-    df['tr_headline'] = x
-    del df['headline']
-    df.reset_index(drop=True, inplace=True)
+    #train model
+    train_loss, _ = train()
 
-    #plotMostCommons(df)
+    #evaluate model
+    valid_loss, _ = evaluate()
 
-    train_text, temp_text, train_labels, temp_labels = train_test_split(df['tr_headline'], df['clickbait'],
-                                                                        random_state=42,
-                                                                        test_size=0.3,
-                                                                        stratify=df['clickbait'])
+    #save the best model
+    if valid_loss < best_valid_loss:
+        best_valid_loss = valid_loss
+        torch.save(model.state_dict(), 'saved_weights.pt')
 
-    # we will use temp_text and temp_labels to create validation and test set
-    val_text, test_text, val_labels, test_labels = train_test_split(temp_text, temp_labels,
-                                                                    random_state=42,
-                                                                    test_size=0.5,
-                                                                    stratify=temp_labels)
+    # append training and validation loss
+    train_losses.append(train_loss)
+    valid_losses.append(valid_loss)
 
-    tokenizer = BertTokenizer.from_pretrained('dbmdz/bert-base-turkish-cased', do_lower_case=True)
+    print(f'\nTraining Loss: {train_loss:.3f}')
+    print(f'Validation Loss: {valid_loss:.3f}')
 
-    #plot_sentence_embeddings_length(train_text.values,tokenizer)
+#load weights of best model
+path = 'saved_weights.pt'
+model.load_state_dict(torch.load(path))
 
-    max_seq_len = 64
+# get predictions for test data
+with torch.no_grad():
+    preds = model(test_seq.to(device), test_mask.to(device))
+    preds = preds.detach().cpu().numpy()
 
-    # tokenize and encode sequences in the training set
-    tokens_train = tokenizer.batch_encode_plus(
-        train_text.tolist(),
-        max_length = max_seq_len,
-        padding=True,
-        truncation=True,
-        return_token_type_ids=False
-    )
+# model's performance
+preds = np.argmax(preds, axis = 1)
+print(classification_report(test_y, preds))
 
-    # tokenize and encode sequences in the validation set
-    tokens_val = tokenizer.batch_encode_plus(
-        val_text.tolist(),
-        max_length = max_seq_len,
-        padding=True,
-        truncation=True,
-        return_token_type_ids=False
-    )
-
-
-    # tokenize and encode sequences in the test set
-    tokens_test = tokenizer.batch_encode_plus(
-        test_text.tolist(),
-        max_length = max_seq_len,
-        padding=True,
-        truncation=True,
-        return_token_type_ids=False
-    )
-
-    # for train set
-    train_seq = torch.tensor(tokens_train['input_ids'])
-    train_mask = torch.tensor(tokens_train['attention_mask'])
-    train_y = torch.tensor(train_labels.tolist())
-
-    # for validation set
-    val_seq = torch.tensor(tokens_val['input_ids'])
-    val_mask = torch.tensor(tokens_val['attention_mask'])
-    val_y = torch.tensor(val_labels.tolist())
-
-    # for test set
-    test_seq = torch.tensor(tokens_test['input_ids'])
-    test_mask = torch.tensor(tokens_test['attention_mask'])
-    test_y = torch.tensor(test_labels.tolist())
-
-    #define a batch size
-    batch_size = 16 #CAN BE CHANGED???? #16 YAP !!!!!!!
-
-    # wrap tensors
-    train_data = TensorDataset(train_seq, train_mask, train_y)
-
-    # dataLoader for train set
-    train_dataloader = DataLoader(train_data, sampler=RandomSampler(train_data), batch_size=batch_size)
-
-    # wrap tensors
-    val_data = TensorDataset(val_seq, val_mask, val_y)
-
-    # dataLoader for validation set
-    val_dataloader = DataLoader(val_data, sampler = SequentialSampler(val_data), batch_size=batch_size)
-
-    bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-cased')
-
-    # freeze all the parameters
-    for param in bert.parameters():
-        param.requires_grad = False
-
-    # pass the pre-trained BERT to our define architecture
-    model = BERT_Arch(bert)
-
-    # push the model to GPU
-    # specify GPU
-    device = torch.device("cuda")
-    model = model.to(device)
-
-    # define the optimizer
-    optimizer = AdamW(model.parameters(), lr = 5e-5)
-
-    # convert class weights to tensor
-    class_wts = compute_class_weight('balanced', np.unique(train_labels), train_labels)
-    weights= torch.tensor(class_wts,dtype=torch.float)
-    weights = weights.to(device)
-
-    # loss function #CAN BE CHANGED????????????
-    cross_entropy = nn.NLLLoss(weight=weights)
-
-    # number of training epochs
-    epochs = 4
-
-    # set initial loss to infinite
-    best_valid_loss = float('inf')
-
-    # empty lists to store training and validation loss of each epoch
-    train_losses=[]
-    valid_losses=[]
-
-    #BURADA EPOCHLAR FLN
-
-    #for each epoch
-    for epoch in range(epochs):
-
-        print('\n Epoch {:} / {:}'.format(epoch + 1, epochs))
-
-        #train model
-        train_loss, _ = train()
-
-        #evaluate model
-        valid_loss, _ = evaluate()
-
-        #save the best model
-        if valid_loss < best_valid_loss:
-            best_valid_loss = valid_loss
-            torch.save(model.state_dict(), 'saved_weights.pt')
-
-        # append training and validation loss
-        train_losses.append(train_loss)
-        valid_losses.append(valid_loss)
-
-        print(f'\nTraining Loss: {train_loss:.3f}')
-        print(f'Validation Loss: {valid_loss:.3f}')
-
-    #load weights of best model
-    path = 'saved_weights.pt'
-    model.load_state_dict(torch.load(path))
-
-    # get predictions for test data
-    with torch.no_grad():
-        preds = model(test_seq.to(device), test_mask.to(device))
-        preds = preds.detach().cpu().numpy()
-
-    # model's performance
-    preds = np.argmax(preds, axis = 1)
-    print(classification_report(test_y, preds))
-
-
-
-
-
-
-
+# confusion matrix
+pd.crosstab(test_y, preds)
