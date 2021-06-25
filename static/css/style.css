@@ -1,0 +1,69 @@
+
+body{
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.main h1 {
+    font-weight: lighter;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.main p {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+hr {
+    border-width: 1px;
+    border: 0.5px solid #cfd4da;
+    width: 340px;
+}
+
+.main input{
+    text-align: center;
+    display: block;
+    width: 320px;
+    height: 40px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255);
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom:15px;
+}
+
+.main #submit-btn{
+    background: rgb(254, 186, 39);
+    border: none;
+    width: 170px;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.main #random-btn{
+    background: rgb(154, 39, 254);
+    border: none;
+    width: 170px;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.inputWrapper{
+    text-align: center;
+}
+
+.heart {
+    color:#EC1625;
+}

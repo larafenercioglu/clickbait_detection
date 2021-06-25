@@ -44,7 +44,7 @@ def removeNum(tweet):
     tweet = re.sub(r"[0-9]+",' ',tweet)
     return tweet
 
-df = pd.read_csv('tr_clickbait_dataset.csv',  encoding="utf-8-sig")
+df = pd.read_csv('tr_clickbait_dataset.csv', encoding="utf-8-sig")
 df.dropna(inplace=True)
 
 # check class distribution
@@ -56,7 +56,8 @@ for headline in df['headline']:
     headlined = re.sub(r"Diken",' ',headlined)
     cleaned_headline = clean(headlined)
     cleanedd_headline = removeNum(cleaned_headline)
-    data_clean.append(cleanedd_headline)
+    h = re.sub(r"…",' ', cleanedd_headline)
+    data_clean.append(h)
 
 x = pd.Series(data_clean)
 x = x.tolist()
@@ -169,7 +170,7 @@ plot_sentence_embeddings_length(train_text.values,tokenizer)
 
 """Padding all the samples to the maximum length is not efficient: it’s better to pad the samples when we’re building a batch, as then we only need to pad to the maximum length in that batch, and not the maximum length in the entire dataset. This can save a lot of time and processing power when the inputs have very variable lengths!"""
 
-max_seq_len = 32 #her batch için bunu güncellesennnnnn
+max_seq_len = 64 #her batch için bunu güncellesennnnnn
 
 # tokenize and encode sequences in the training set
 tokens_train = tokenizer.batch_encode_plus(
@@ -419,4 +420,4 @@ preds = np.argmax(preds, axis = 1)
 print(classification_report(test_y, preds))
 
 # confusion matrix
-pd.crosstab(test_y, preds)
+print(pd.crosstab(test_y, preds))

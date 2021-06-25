@@ -3,6 +3,7 @@ import torch
 from transformers import BertTokenizer
 from transformers import AutoModel
 import re
+import random
 import string
 from model import BERT_Arch
 
@@ -18,6 +19,10 @@ def clean(tweet):
 def removeNum(tweet):
     tweet = re.sub(r"[0-9]+",' ',tweet)
     return tweet
+
+def get_headline(data: list):
+    random_number = random.randint(0, len(data)-1) #WOWOOWOWOOOOOOOOOOOOOOOOOOOOO
+    return data[random_number]
 
 def predict(sentence: str):
     processed_sentencen = clean(sentence)
@@ -38,8 +43,15 @@ model = BERT_Arch(bert)
 model.load_state_dict(torch.load("saved_weights.pt"))
 app = Flask(__name__)
 
+with open("headlines.txt", encoding = "utf-8-sig") as data:
+    headlines = []
+    split = data.read().split("\n")
+    for comment in split:
+        headlines.append(comment)
+
 @app.route("/", methods=["POST", "GET"])
 def home():
+
     if request.method == "POST":
         if request.form["btn_idf"] == "submit":
             sentence = request.form["sentence"]
@@ -59,6 +71,9 @@ def home():
             prediction = "Non-Clickbait" if prediction == 0 else "Clickbait"
             return render_template("index.html", output=prediction, sentence=sentence)
 
+        elif request.form["btn_idf"] == "random":
+            h = get_headline(headlines)
+            return render_template("index.html", sentence=h)
     else:
         return render_template("index.html")
 
