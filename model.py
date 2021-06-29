@@ -10,7 +10,7 @@ class BERT_Arch(nn.Module):
         self.dropout = nn.Dropout(0.1)
 
         # relu activation function
-        self.relu =  nn.ReLU()
+        self.relu = nn.ReLU()
 
         # dense layer 1
         self.fc1 = nn.Linear(768,512)

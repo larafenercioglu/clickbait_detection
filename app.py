@@ -21,7 +21,7 @@ def removeNum(tweet):
     return tweet
 
 def get_headline(data: list):
-    random_number = random.randint(0, len(data)-1) #WOWOOWOWOOOOOOOOOOOOOOOOOOOOO
+    random_number = random.randint(0, len(data)-1)
     return data[random_number]
 
 def predict(sentence: str):
@@ -37,10 +37,10 @@ def predict(sentence: str):
     _, prediction = torch.max(pred, dim=1)
     return prediction.numpy()[0]
 
-tokenizer = BertTokenizer.from_pretrained('dbmdz/bert-base-turkish-cased', do_lower_case=True)
-bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-cased')
+tokenizer = BertTokenizer.from_pretrained('dbmdz/bert-base-turkish-128k-cased', do_lower_case=True)
+bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-128k-cased')
 model = BERT_Arch(bert)
-model.load_state_dict(torch.load("saved_weights.pt"))
+model.load_state_dict(torch.load("saved_weights_128k_cased.pt"))
 app = Flask(__name__)
 
 with open("headlines.txt", encoding = "utf-8-sig") as data:

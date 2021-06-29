@@ -1,0 +1,11 @@
+torch==1.9.0+cu102
+Flask==2.0.1
+transformers==4.7.0
+requests==2.25.1
+bs4==0.0.1
+beautifulsoup4==4.9.3
+numpy==1.19.5
+pandas==1.2.4
+matplotlib==3.4.2
+nltk==3.6.2
+scikit-learn==0.24.2

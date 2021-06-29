@@ -3,7 +3,7 @@ import pandas as pd
 import torch
 import random
 import torch.nn as nn
-from transformers import BertTokenizer
+from transformers import AutoModel, AutoTokenizer
 from sklearn.utils.class_weight import compute_class_weight
 from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
@@ -77,7 +77,7 @@ def plotMostCommons(df):
 
     for i,r in df_clickbait.iterrows():
         text=''.join(ch for ch in df_clickbait["tr_headline"][i] if ch not in exclude) #remove punctuations from the text in order not to distort frequencies
-        #text=''.join(ch for ch in df_clickbait["headline"][i]) #with punctuation
+        #text=''.join(ch for ch in df_clickbait["tr_headline"][i]) #with punctuation
         tokens=word_tokenize(text)
         tokens=[tok.lower() for tok in tokens if tok not in stop_words] #remove stopwords from the text in order not to distort frequencies
         token_list.extend(tokens)
@@ -93,7 +93,6 @@ def plotMostCommons(df):
     ngram = top_15.keys()
     y_pos = np.arange(len(ngram))
     performance = top_15.values()
-
 
     ax.barh(y_pos, performance, align='center')
     ax.set_yticks(y_pos)
@@ -149,6 +148,10 @@ val_text, test_text, val_labels, test_labels = train_test_split(temp_text, temp_
                                                                 random_state=42,
                                                                 test_size=0.5,
                                                                 stratify=temp_labels)
+#dbmdz/bert-base-turkish-cased
+#dbmdz/bert-base-turkish-128k-cased
+#dbmdz/distilbert-base-turkish-cased
+#dbmdz/convbert-base-turkish-cased
 
 # import BERT-base pretrained model
 bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-cased')
@@ -252,7 +255,7 @@ from sklearn.utils.class_weight import compute_class_weight
 #compute the class weights
 class_wts = compute_class_weight('balanced', np.unique(train_labels), train_labels)
 
-print(class_wts)
+#print(class_wts)
 
 # convert class weights to tensor
 weights= torch.tensor(class_wts,dtype=torch.float)
@@ -262,7 +265,7 @@ weights = weights.to(device)
 cross_entropy  = nn.NLLLoss(weight=weights)
 
 # number of training epochs
-epochs = 20 #CAN BE CHANGED?????????????
+epochs = 1 #CAN BE CHANGED?????????????
 
 # function to train the model
 def train():

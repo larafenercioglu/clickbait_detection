@@ -1,50 +1,12 @@
-2021-06-24 11:18:03.201419 | author | Clickbait | fenerbahçe þampiyon oldu
-
-2021-06-24 11:18:17.344819 | author | Clickbait | corona virüsü aþýsý 25 yaþa indi
-
-2021-06-24 11:18:22.153981 | author | Clickbait | corona virüsü aþýsý 25 yaþa indi
-
-2021-06-24 11:18:47.816662 | author | Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-2021-06-24 11:21:17.910262 | author | Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-2021-06-24 11:21:25.826618 | author | Clickbait | fenerbahçe þampiyon oldu
-
-2021-06-24 11:23:03.150855 | author | Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
-
-2021-06-24 11:23:21.842919 | author | Non-Clickbait | Uþþaki Tarikatý Lideri Eyyüp Fatih Þaðban'a çocuk istismarýndan 10 yýl 5 ay hapis
-
-2021-06-24 11:23:41.524534 | author | Clickbait | Rusya - Ýngiltere gerilimine Türkiye'den ilk açýklama!
-
-2021-06-24 11:34:13.318191 | author | Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
 Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
 
 Clickbait | Ýþte Baþbakandan beklenen açýklama
 
-Clickbait | O takým þampiyon oldu!
-
 Non-Clickbait | Corona ile mücadele kapsamýnda yasaklar gece 9'dan sonra baþlýyor
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | 
-
-Clickbait | 
-
-Clickbait | 
-
-Clickbait | 
-
-Clickbait | 
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
 
 Clickbait | Yeni iphone 12 pazartesi günü tüm maðazalarda
 
 Clickbait | Derbide büyük sözler!
-
-Clickbait | Beþiktaþ Fenerbahçe'yi 2-1 yendi
 
 Clickbait | Beþiktaþ Fenerbahçe'yi 2-1 yendi
 
@@ -58,25 +20,9 @@ Clickbait | B vitamini eksikliði hafýzada geriliðe sebep oluyor
 
 Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
 
-Clickbait | fenerbahçe þampiyon oldu
-
 Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
 
 Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | corona virüsü aþýsý 25 yaþa indi
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | fenerbahçe þampiyon oldu
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | Corona virüsü aþýsý 25 yaþa indi
-
-Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
-
-Clickbait | fenerbahçe þampiyon oldu
 
 Non-Clickbait | Saðlýkçýlarýn istifa ve izin sýnýrlamalarý 1 Temmuz'da yürürlükten kalkacak
 
@@ -84,13 +30,7 @@ Clickbait | Yeni halini görenler gözlerine inanamadý!
 
 Clickbait | Öyle sözler söyledi ki
 
-Clickbait | Bunu da gördük! Canlý yayýnda soyundu
-
-Non-Clickbait | Kimse o sürprizi beklemiyordu. Murat Boz'un aðzýna bizzat kendisi verdi
-
 Clickbait | Yuttuðu sineði öldürmek için zehir içti
-
-Clickbait | Duvarý delip hamile býraktý
 
 Clickbait | Okey masasýnda kafasýna inek düþtü
 
@@ -98,25 +38,9 @@ Clickbait | Didimli kadýnlar Ýstanbul Sözleþmesi için pedal çevirdi
 
 Non-Clickbait | Ahmet Ümit’in son kitabý Pergamon Antik Kenti’nde tanýtýldý
 
-Non-Clickbait | Ahmet Ümit’in son kitabý Pergamon Antik Kenti’nde tanýtýldý
-
-Non-Clickbait | Harmandalý Geri Gönderme Merkezinde çýkan yangýnda 1 mülteci yaþamýný yitirdi
-
 Non-Clickbait | Harmandalý Geri Gönderme Merkezinde çýkan yangýnda 1 mülteci yaþamýný yitirdi
 
 Non-Clickbait | Ýþsizlik ödeneði yolsuzluðu: Europol, 12 milyon avroluk vurgun yapan suç örgütünü çökertti
-
-Non-Clickbait | Ã–lÃ¼mcÃ¼l sendroma yakalandÄ±lar! DÃ¼nya ÅŸaÅŸkÄ±nlÄ±kla takip ediyor: AÅŸÄ±da yeni yan etki!
-
-Non-Clickbait | Delta Plus varyantÄ± riskli mi? Bilim insanlarÄ±ndan Ã¶nemli aÃ§Ä±klama
-
-Non-Clickbait | DÃ¼nyaca Ã¼nlÃ¼ yÃ¶netmenin Netflix aÃ§Ä±klamasÄ± ÅŸaÅŸÄ±rttÄ±
-
-Non-Clickbait | Ä°srailâ€™de vaka artÄ±ÅŸÄ±: KapalÄ± alanda maske takma zorunluÄŸu yeniden getiriliyor
-
-Non-Clickbait | Mansur YavaÅŸ'tan 'Lezzet Ankara' projesine tepki gÃ¶steren Yemek Sepeti CEO'su Nevzat AydÄ±n'a yanÄ±t
-
-Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
 
 Clickbait | Dünyaca ünlü yönetmenin Netflix açýklamasý þaþýrttý
 
@@ -124,17 +48,7 @@ Non-Clickbait | Dýþiþleri Bakanlýðý, Honduras'ýn Büyükelçiliðini Kudüs'e taþýmas
 
 Non-Clickbait | Delta Plus varyantý riskli mi? Bilim insanlarýndan önemli açýklama
 
-Clickbait | Delta Plus varyantý riskli mi? Bilim insanlarýndan önemli açýklama
-
-Clickbait | Delta Plus varyantý riskli mi? Bilim insanlarýndan önemli açýklama
-
 Non-Clickbait | Mansur Yavaþ'tan 'Lezzet Ankara' projesine tepki gösteren Yemek Sepeti CEO'su Nevzat Aydýn'a yanýt
-
-Non-Clickbait | Mansur Yavaþ'tan 'Lezzet Ankara' projesine tepki gösteren Yemek Sepeti CEO'su Nevzat Aydýn'a yanýt
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
 
 Non-Clickbait | Ýsrail’de vaka artýþý: Kapalý alanda maske takma zorunluðu yeniden getiriliyor
 
@@ -153,22 +67,6 @@ Non-Clickbait | Ýsrail’de vaka artýþý: Kapalý alanda maske takma zorunluðu yenid
 Clickbait | Türkiye'de Yýlýn Otomobili ödülünün sahibi belli oldu
 
 Clickbait | Ýsrail'den yeni maske kararý!
-
-Non-Clickbait | Alaattin Aktaþ: Enflasyonda yüzde 2’nin altýndaki artýþlarý hiç gerçekçi bulmayacaðým
-
-Clickbait | 
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
-
-Non-Clickbait | Delta Plus varyantý riskli mi? Bilim insanlarýndan önemli açýklama
-
-Clickbait | Ýsrail'den yeni maske kararý!
-
-Clickbait | fenerbahçe þampiyon oldu
-
-Clickbait | Yuttuðu sineði öldürmek için zehir içti
 
 Non-Clickbait | Çineliler feldspat madenine karþý çýktý, ÇED halkýn katýlým toplantýsýný yaptýrmadý
 
@@ -190,12 +88,6 @@ Clickbait | Kütahya’daki vaka artýþýnýn nedeni belli oldu
 
 Clickbait | Ziraat Bankasý'ndan 750 milyon dolarlýk kredi yanýtý
 
-Clickbait | Kütahya’daki vaka artýþýnýn nedeni belli oldu
-
-Clickbait | Ziraat Bankasý'ndan 750 milyon dolarlýk kredi yanýtý
-
-Non-Clickbait | Ölümcül sendroma yakalandýlar! Dünya þaþkýnlýkla takip ediyor: Aþýda yeni yan etki!
-
 Clickbait | Otoyollarda hýz limitleri deðiþiyor
 
 Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
@@ -214,10 +106,6 @@ Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
 
 Non-Clickbait | Ýhsan Çaralan: Ýhvancý yaþam tarzý dayatmalarýna karþý, halkýn tepkisi test ediliyor
 
-Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
 Non-Clickbait | Galatasaray Kulübü’nde yönetim kurulu görev daðýlýmý belli oldu
 
 Clickbait | Ziraat Bankasý'ndan 750 milyon dolarlýk kredi yanýtý
@@ -225,10 +113,6 @@ Clickbait | Ziraat Bankasý'ndan 750 milyon dolarlýk kredi yanýtý
 Non-Clickbait | Dýþiþleri Bakanlýðý, Honduras'ýn Büyükelçiliðini Kudüs'e taþýmasýný kýnadý
 
 Clickbait | Kütahya’daki vaka artýþýnýn nedeni belli oldu
-
-Clickbait | Bakan Koca açýkladý: Delta varyantý kaç kiþide görüldü?
-
-Clickbait | fenerbahçe þampiyon oldu
 
 Non-Clickbait | Delta Plus varyantý riskli mi? Bilim insanlarýndan önemli açýklama
 
@@ -240,61 +124,58 @@ Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
 
 Non-Clickbait | Reuters: Merkez Bankasý'nýn swap için görüþtüðü ülkeler belli oldu
 
-Non-Clickbait | Reuters: Merkez Bankasý'nýn swap için görüþtüðü ülkeler belli oldu
-
-Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
-
-Clickbait | Ýsrail'den yeni maske kararý!
-
-Clickbait | #LGS sonuçlarý ne zaman açýklanacak?
-
-Clickbait | fenerbahçe þampiyon oldu
-
-Clickbait | Yuttuðu sineði öldürmek için zehir içti
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
 Non-Clickbait | Çineliler feldspat madenine karþý çýktý, ÇED halkýn katýlým toplantýsýný yaptýrmadý
 
 Clickbait | Bakan Koca açýkladý: Delta varyantý kaç kiþide görüldü?
 
 Clickbait | Türkiye'de Yýlýn Otomobili ödülünün sahibi belli oldu
 
-Clickbait | Türkiye'de Yýlýn Otomobili ödülünün sahibi belli oldu
-
 Clickbait | Ýsrail'den yeni maske kararý!
-
-Non-Clickbait | Ýhsan Çaralan: Ýhvancý yaþam tarzý dayatmalarýna karþý, halkýn tepkisi test ediliyor
-
-Clickbait | Bakan Koca açýkladý: Delta varyantý kaç kiþide görüldü?
-
-Non-Clickbait | Ýhsan Çaralan: Ýhvancý yaþam tarzý dayatmalarýna karþý, halkýn tepkisi test ediliyor
-
-Clickbait | Kütahya’daki vaka artýþýnýn nedeni belli oldu
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Non-Clickbait | Ölümcül sendroma yakalandýlar! Dünya þaþkýnlýkla takip ediyor: Aþýda yeni yan etki!
-
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
-
-Clickbait | Bakan Koca açýkladý: Delta varyantý kaç kiþide görüldü?
-
-Non-Clickbait | En yetkili kurum açýkladý... Aþýda yeni yan etki! Ýþte en þanssýz yaþ grubu.
-
 Non-Clickbait | Bornova Emek ve Demokrasi Güçleri: Devlet-sermaye-mafya düzeninden hesap sorma zamaný
 
-Non-Clickbait | En yetkili kurum açýkladý... Aþýda yeni yan etki! Ýþte en þanssýz yaþ grubu.
+Clickbait | 18 yaþ üstü aþý randevularý açýldý mý?
 
-Non-Clickbait | Dýþiþleri Bakanlýðý, Honduras'ýn Büyükelçiliðini Kudüs'e taþýmasýný kýnadý
+Clickbait | Validebað'da ikinci sevindirici yargý kararý: Kurul izni de durduruldu
 
-Non-Clickbait | CHP bugün oylamada erken seçim olacaðýnýn belirtti
+Non-Clickbait | Euro2020 | Müslüman oyuncular istemezse masaya bira þiþesi konmayacak
 
-Non-Clickbait | Çorum Katliamý'nýn 41'inci yýlýnda kentte bir dizi eylem ve etkinlik yapýlacak
+Clickbait | Çöplükten hazine çýktý! 5 dolara aldýðý tablonun arkasýna bakýnca... 
 
-Clickbait | Euro2020 | Müslüman oyuncular istemezse masaya bira þiþesi konmayacak
+Clickbait | Dikili'de yaþayanlar Bahriye Üçok Caddesi'ne kaldýrým talep ediyor
 
-Clickbait | Genel Kurul'da Serdar ve Mesut patlamasý!
+Non-Clickbait | Bülent Kýlýç: 20 yýllýk gazetecilik hayatýmda ilk defa öldürüleceðimi hissettim
 
-Clickbait | Yaþlanmayý yavaþlatmanýn anahtarý ellerinde: Çimanelerin sýrrý ne?
+Non-Clickbait | Kadýköy Anadolu Lisesi'nde öðrenci ve velilerden "taþýnmak istemiyoruz" eylemi
+
+Clickbait | Yýlmaz Erdoðan’ý þoke eden hareketler!
+
+Clickbait | Harun Tekin'in yeni adresi belli oldu
+
+Clickbait | Ýstanbul'da riskli bina sayýsý açýklandý
+
+Non-Clickbait | Ankara Barosu ‘müzik yasaðý’nýn iptali için dava açtý
+
+Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
+
+Clickbait | Evde uyulmasý gereken 15 karantina kuralý
+
+Clickbait | Ruh haliniz Covid aþýnýzý nasýl etkileyebilir?
+
+Clickbait | 18 yaþ aþý oluyor mu? 
+
+Clickbait | Influencer'larýn reklamlarýna düzenleme geldi! 'Takipçilerimden negatif geri dönüþler aldým'
+
+Non-Clickbait | Muðla'da orman ve makilik alanda yangýn baþladý
+
+Clickbait | Ali Koç ve yönetimi ibra edildi!
+
+Non-Clickbait | Aðrý Daðý’nýn etekleri göçmen kuþlara ev sahipliði yapýyor
+
+Clickbait | Açýk açýk gösterdiler! Yer yerinden oynadý
+
+Non-Clickbait | Aðýr hasta tutuklu M. Emin Özkan için hak örgütlerinden çaðrý: Serbest býrakýlmalý
+
+Clickbait | Ali Koç ve yönetimi ibra edildi!
+
+Clickbait | 18 yaþ üstü aþý randevularý açýldý mý?
 
