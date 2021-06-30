@@ -15,10 +15,6 @@ coverpage_news = soup1.find_all('span', class_='news-title')
 for new in coverpage_news:
     headlines.append(new.get_text())
 
-################################################################
-
-
-################################################################
 url_evrensel = "https://www.evrensel.net/"
 
 r1 = requests.get(url_evrensel)

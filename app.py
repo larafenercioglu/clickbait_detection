@@ -4,6 +4,8 @@ from transformers import BertTokenizer
 from transformers import AutoModel
 import re
 import random
+import requests
+from bs4 import BeautifulSoup
 import string
 from model import BERT_Arch
 
@@ -40,9 +42,41 @@ def predict(sentence: str):
 tokenizer = BertTokenizer.from_pretrained('dbmdz/bert-base-turkish-128k-cased', do_lower_case=True)
 bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-128k-cased')
 model = BERT_Arch(bert)
-model.load_state_dict(torch.load("saved_weights_128k_cased.pt"))
+model.load_state_dict(torch.load("saved_weights_punct.pt"))
 app = Flask(__name__)
 
+################################################################
+#####   TO GET THE NEWEST HEADLINES FOR RANDOM HEADLINE    #####
+headlines = []
+
+url_hürriyet = "https://www.hurriyet.com.tr/"
+
+r1 = requests.get(url_hürriyet)
+coverpage = r1.content
+soup1 = BeautifulSoup(coverpage, "html.parser")
+
+coverpage_news = soup1.find_all('span', class_='news-title')
+for new in coverpage_news:
+    headlines.append(new.get_text())
+
+url_evrensel = "https://www.evrensel.net/"
+
+r1 = requests.get(url_evrensel)
+coverpage = r1.content
+soup1 = BeautifulSoup(coverpage, "html.parser")
+
+coverpage_news = soup1.find_all('h5', class_='card-title') #dont get anything within h5??? how to avoid <a> </a> ????
+for new in coverpage_news:
+    headlines.append(new.get_text())
+
+with open('headlines.txt', 'w', encoding = "utf-8-sig") as f:
+    for headline in headlines:
+        if headline == "EVRENSEL ABONE" or headline == "EVRENSEL EGE":
+            continue
+        f.write(headline)
+        f.write('\n')
+
+################################################################
 with open("headlines.txt", encoding = "utf-8-sig") as data:
     headlines = []
     split = data.read().split("\n")
@@ -63,7 +97,7 @@ def home():
             except Exception as e:
                 global model
                 model = BERT_Arch(bert)
-                model.load_state_dict(torch.load("saved_weights.pt"))
+                model.load_state_dict(torch.load("saved_weights_punct.pt"))
                 with open("log_file.txt", "a") as log:
                     prediction = predict(sentence)
                     log.write(("Non-Clickbait" if prediction == 0 else "Clickbait") + " | " + sentence + "\n\n")
