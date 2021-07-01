@@ -1,10 +1,10 @@
-FROM python:3.8
+FROM python:3.9
 
-WORKDIR /
-
-COPY . .
+WORKDIR /app
+COPY . /app
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+EXPOSE 5000
+ENTRYPOINT [ "python" ]
+CMD [ "app.py" ]
