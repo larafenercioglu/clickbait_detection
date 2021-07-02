@@ -386,7 +386,7 @@ for epoch in range(epochs):
     #save the best model
     if valid_loss < best_valid_loss:
         best_valid_loss = valid_loss
-        torch.save(model.state_dict(), 'saved_weights.pt')
+        torch.save(model.state_dict(), 'saved_weights_punct_128k.pt') #SAVED MODEL HERE!!!!
     
     # append training and validation loss
     train_losses.append(train_loss)
@@ -410,37 +410,24 @@ def predict(sentence: str):
 tokenizer = BertTokenizerFast.from_pretrained('dbmdz/bert-base-turkish-128k-cased', do_lower_case=True)
 bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-128k-cased')
 model = BERT_Arch(bert)
-model.load_state_dict(torch.load("saved_weights_punct.pt"))
+model.load_state_dict(torch.load("saved_weights_punct_128k.pt"))
 preds = []
 for text in test_text:
     preds.append(predict(text))
+
 print(classification_report(test_labels, preds))
 
-accuracy_score(test_labels, preds)
+print(accuracy_score(test_labels, preds))
 
 def show_confusion_matrix(confusion_matrix):
   hmap = sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues")
   hmap.yaxis.set_ticklabels(hmap.yaxis.get_ticklabels(), rotation=0, ha='right')
   hmap.xaxis.set_ticklabels(hmap.xaxis.get_ticklabels(), rotation=30, ha='right')
   plt.ylabel('True sentiment')
-  plt.xlabel('Predicted sentiment');
+  plt.xlabel('Predicted sentiment')
+
 class_names = ['0', '1']
 cm = confusion_matrix(test_labels, preds)
 df_cm = pd.DataFrame(cm, index=class_names, columns=class_names)
 show_confusion_matrix(df_cm)
 
-#load weights of best model
-path = 'saved_weights_punct.pt'
-model.load_state_dict(torch.load(path))
-
-# get predictions for test data
-with torch.no_grad():
-  preds = model(test_seq.to(device), test_mask.to(device))
-  preds = preds.detach().cpu().numpy()
-
-# model's performance
-preds = np.argmax(preds, axis = 1)
-print(classification_report(test_y, preds))
-
-# confusion matrix
-pd.crosstab(test_y, preds)
