@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import torch
-from transformers import BertTokenizer
+from transformers import BertTokenizerFast
 from transformers import AutoModel
 import re
 import random
@@ -63,10 +63,10 @@ def predict(sentence: str):
     _, prediction = torch.max(pred, dim=1)
     return prediction.numpy()[0]
 
-tokenizer = BertTokenizer.from_pretrained('dbmdz/bert-base-turkish-128k-cased', do_lower_case=True)
+tokenizer = BertTokenizerFast.from_pretrained('dbmdz/bert-base-turkish-128k-cased', do_lower_case=True)
 bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-128k-cased')
 model = BERT_Arch(bert)
-model.load_state_dict(torch.load("saved_weights_punct_128k.pt"))
+#model.load_state_dict(torch.load("saved_weights_punct_128k.pt"))
 
 '''
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -75,6 +75,9 @@ model.to(device)
 '''
 
 '''
+
+'''
+
 # Specify a path to save to
 PATH = "saved_weights_punct_128k.pt"
 
@@ -87,7 +90,6 @@ torch.save(net.state_dict(), PATH)
 device = torch.device('cpu')
 model = BERT_Arch(bert)
 model.load_state_dict(torch.load(PATH, map_location=device))
-'''
 
 app = Flask(__name__)
 
