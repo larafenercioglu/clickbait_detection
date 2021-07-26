@@ -2,11 +2,12 @@ from flask import Flask, render_template, request
 import torch
 from transformers import BertTokenizerFast
 from transformers import AutoModel
+from transformers import BertForSequenceClassification
 import re
+import numpy as np
 import random
 import requests
 from bs4 import BeautifulSoup
-from model import BERT_Arch
 
 def clean(tweet):
     tweet = re.sub(r"@[A-Za-z0-9ğüşöçıİĞÜŞÖÇ_]+",' ',tweet)
@@ -60,35 +61,33 @@ def predict(sentence: str):
     mask = torch.tensor(sent_id['attention_mask'])
 
     pred = model(ids, mask)
-    _, prediction = torch.max(pred, dim=1)
-    return prediction.numpy()[0]
+    logits = pred.logits
+    logits = logits.detach().cpu().numpy()
+    predictions = []
+    predictions.append(logits)
+
+    flat_predictions = [item for sublist in predictions for item in sublist]
+    flat_predictions = np.argmax(flat_predictions, axis=1).flatten()
+    print(flat_predictions)
+    return flat_predictions[0]
 
 tokenizer = BertTokenizerFast.from_pretrained('dbmdz/bert-base-turkish-128k-cased', do_lower_case=True)
-bert = AutoModel.from_pretrained('dbmdz/bert-base-turkish-128k-cased')
-model = BERT_Arch(bert)
-#model.load_state_dict(torch.load("saved_weights_punct_128k.pt"))
-
-'''
-device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-model.load_state_dict(torch.load("saved_weights_punct_128k.pt", map_location=device))
-model.to(device)
-'''
-
-'''
-
-'''
+model = BertForSequenceClassification.from_pretrained(
+    "dbmdz/bert-base-turkish-128k-cased",
+    num_labels = 2,
+    output_attentions = False,
+    output_hidden_states = False,
+)
+model.load_state_dict(torch.load("saved_weights.pt"))
 
 # Specify a path to save to
-PATH = "saved_weights_punct_128k.pt"
-
-net = BERT_Arch(bert)
+PATH = "saved_weights.pt"
 
 # Save
-torch.save(net.state_dict(), PATH)
+torch.save(model.state_dict(), PATH)
 
 # Load
 device = torch.device('cpu')
-model = BERT_Arch(bert)
 model.load_state_dict(torch.load(PATH, map_location=device))
 
 app = Flask(__name__)
